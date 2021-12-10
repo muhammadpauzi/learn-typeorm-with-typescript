@@ -36,4 +36,18 @@ export default class UserRepository {
             }
         })
     }
+
+    public deleteUser(id: number): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const user = await User.findOne(id);
+                if (!user)
+                    reject({ message: "USER_DOES_NOT_EXISTS" });
+                user?.remove();
+                resolve(true);
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
 }

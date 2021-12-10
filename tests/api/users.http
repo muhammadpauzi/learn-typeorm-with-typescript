@@ -17,3 +17,8 @@ Content-Type: application/json
 
 ###
 GET {{BASE_URL}}/1
+
+###
+
+DELETE {{BASE_URL}}?id=62
+
