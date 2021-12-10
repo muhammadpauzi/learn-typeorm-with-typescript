@@ -1,3 +1,4 @@
+import { NOT_FOUND_CODE } from "../constants/statusCode";
 import User from "../entities/User";
 import IUser from "../interfaces/IUser";
 
@@ -30,7 +31,7 @@ export default class UserRepository {
         return new Promise(async (resolve, reject) => {
             try {
                 const user = await User.findOne(id);
-                if (!user) reject({ code: 404, message: "USER_DOES_NOT_EXISTS" });
+                if (!user) reject({ code: NOT_FOUND_CODE, message: "USER_DOES_NOT_EXISTS" });
                 resolve(user);
             } catch (error) {
                 reject(error);
@@ -42,7 +43,7 @@ export default class UserRepository {
         return new Promise(async (resolve, reject) => {
             try {
                 const user = await User.findOne(id);
-                if (!user) reject({ code: 404, message: "USER_DOES_NOT_EXISTS" });
+                if (!user) reject({ code: NOT_FOUND_CODE, message: "USER_DOES_NOT_EXISTS" });
                 user?.remove();
                 resolve(true);
             } catch (error) {
