@@ -1,0 +1,19 @@
+@BASE_URL = http://127.0.0.1:5000/api/users
+@random = {{$randomInt 1 1000}}
+@randomPassword = {{$randomInt 1000000 9999999}}
+
+GET {{BASE_URL}}
+
+###
+POST {{BASE_URL}}
+Content-Type: application/json
+
+{
+    "username": "{{random}}",
+    "name": "{{random}}",
+    "email": "{{random}}",
+    "password": "{{randomPassword}}"
+}
+
+###
+GET {{BASE_URL}}/1
