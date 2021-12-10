@@ -16,9 +16,17 @@ Content-Type: application/json
 }
 
 ###
-GET {{BASE_URL}}/1111
+GET {{BASE_URL}}/1
 
 ###
 
-DELETE {{BASE_URL}}?id=1111
+DELETE {{BASE_URL}}?id=1
 
+###
+PUT {{BASE_URL}}?id=1
+Content-Type: application/json
+
+{
+    "name": "{{random}}",
+    "email": "{{random}}"
+}

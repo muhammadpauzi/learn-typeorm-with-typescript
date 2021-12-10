@@ -52,4 +52,20 @@ export default class UserRepository {
             }
         })
     }
+
+    public updateUser(id: number, userBody: IUser): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const user = await this.getUser(id);
+                // update value
+                user.username = userBody.username || user.username;
+                user.name = userBody.name || user.name;
+
+                const updatedUser = await user.save();
+                resolve(updatedUser);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
+            }
+        })
+    }
 }

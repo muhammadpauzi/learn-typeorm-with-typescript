@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { USER_CREATED_MESSAGE, USER_DELETED_MESSAGE } from "../constants/messages";
+import { USER_CREATED_MESSAGE, USER_DELETED_MESSAGE, USER_UPDATED_MESSAGE } from "../constants/messages";
 import ApiResponse from "../helpers/ApiResponse";
 import Error from "../helpers/Error";
 import UserRepository from "../repositories/UserRepository";
@@ -47,6 +47,16 @@ export default class UserController {
             await this.userRepository.deleteUser(Number(id));
             // REFACTOR: "DELETED" to contant
             return ApiResponse.successResponse(res, { message: USER_DELETED_MESSAGE });
+        } catch (error: any) {
+            return Error.handleError(res, error);
+        }
+    }
+
+    public async update(req: Request, res: Response) {
+        try {
+            const { id } = req.query;
+            const updatedUser = await this.userRepository.updateUser(Number(id), req.body);
+            return ApiResponse.successResponse(res, { message: USER_UPDATED_MESSAGE, user: updatedUser });
         } catch (error: any) {
             return Error.handleError(res, error);
         }
