@@ -4,7 +4,7 @@ import ApiResponse from "./ApiResponse";
 export default class Error {
     public static handleError(res: Response, error: any) {
         console.log(error);
-        // REFACTOR: desctruction object error
-        return ApiResponse.errorResponse(res, error.code, { code: error.code, message: error.message });
+        const { code, message } = error;
+        return ApiResponse.errorResponse(res, code, { code, message });
     }
 }
