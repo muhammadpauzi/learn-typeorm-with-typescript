@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import ApiResponse from "../helpers/ApiResponse";
+import Error from "../helpers/Error";
 import UserRepository from "../repositories/UserRepository";
 
 export default class UserController {
@@ -22,8 +23,8 @@ export default class UserController {
         try {
             const user = await this.userRepository.createUser(req.body);
             return ApiResponse.successCreatedResponse(res, { user });
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            return Error.handleError(res, error);
         }
     }
 
@@ -33,8 +34,8 @@ export default class UserController {
             const { id } = req.params;
             const user = await this.userRepository.getUser(Number(id));
             return ApiResponse.successResponse(res, { user });
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            return Error.handleError(res, error);
         }
     }
 
@@ -45,8 +46,8 @@ export default class UserController {
             await this.userRepository.deleteUser(Number(id));
             // REFACTOR: "DELETED" to contant
             return ApiResponse.successResponse(res, { message: "USER_DELETED" });
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            return Error.handleError(res, error);
         }
     }
 }

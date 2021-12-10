@@ -16,9 +16,9 @@ Content-Type: application/json
 }
 
 ###
-GET {{BASE_URL}}/1
+GET {{BASE_URL}}/1111
 
 ###
 
-DELETE {{BASE_URL}}?id=62
+DELETE {{BASE_URL}}?id=1111
 

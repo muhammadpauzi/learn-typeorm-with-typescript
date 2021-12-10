@@ -8,4 +8,8 @@ export default class ApiResponse {
     public static successCreatedResponse(res: Response, data: object | string): Response {
         return res.status(201).json(data);
     }
+
+    public static errorResponse(res: Response, status: number, data: object | string): Response {
+        return res.status(status).json(data);
+    }
 }
