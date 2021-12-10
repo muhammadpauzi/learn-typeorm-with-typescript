@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { USER_CREATED_MESSAGE, USER_DELETED_MESSAGE } from "../constants/messages";
 import ApiResponse from "../helpers/ApiResponse";
 import Error from "../helpers/Error";
 import UserRepository from "../repositories/UserRepository";
@@ -13,7 +14,7 @@ export default class UserController {
     public async users(req: Request, res: Response) {
         try {
             const users = await this.userRepository.getUsers();
-            return ApiResponse.successResponse(res, { users });
+            return ApiResponse.successResponse(res, { message: USER_CREATED_MESSAGE, users });
         } catch (error) {
             return Error.handleError(res, error);
         }
@@ -45,7 +46,7 @@ export default class UserController {
             // FIX: show error if id missing
             await this.userRepository.deleteUser(Number(id));
             // REFACTOR: "DELETED" to contant
-            return ApiResponse.successResponse(res, { message: "USER_DELETED" });
+            return ApiResponse.successResponse(res, { message: USER_DELETED_MESSAGE });
         } catch (error: any) {
             return Error.handleError(res, error);
         }
