@@ -15,7 +15,7 @@ export default class UserController {
             const users = await this.userRepository.getUsers();
             return ApiResponse.successResponse(res, { users });
         } catch (error) {
-            console.log(error);
+            return Error.handleError(res, error);
         }
     }
 

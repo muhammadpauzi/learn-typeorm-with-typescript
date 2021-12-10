@@ -1,4 +1,4 @@
-import { NOT_FOUND_CODE } from "../constants/statusCode";
+import { NOT_FOUND_CODE, SERVER_ERROR_CODE } from "../constants/statusCode";
 import User from "../entities/User";
 import IUser from "../interfaces/IUser";
 
@@ -8,8 +8,8 @@ export default class UserRepository {
             try {
                 const users = await User.find({ order: { createdAt: "DESC" } });
                 resolve(users);
-            } catch (error) {
-                reject(error);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
             }
         })
     }
@@ -21,8 +21,8 @@ export default class UserRepository {
                 let newUser = await User.create({ username, name, email, password });
                 newUser = await newUser.save();
                 resolve(newUser);
-            } catch (error) {
-                reject(error);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
             }
         })
     }
@@ -33,8 +33,8 @@ export default class UserRepository {
                 const user = await User.findOne(id);
                 if (!user) reject({ code: NOT_FOUND_CODE, message: "USER_DOES_NOT_EXISTS" });
                 resolve(user);
-            } catch (error) {
-                reject(error);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
             }
         })
     }
@@ -46,8 +46,8 @@ export default class UserRepository {
                 if (!user) reject({ code: NOT_FOUND_CODE, message: "USER_DOES_NOT_EXISTS" });
                 user?.remove();
                 resolve(true);
-            } catch (error) {
-                reject(error);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
             }
         })
     }
