@@ -14,7 +14,7 @@ export default class UserController {
     public async users(req: Request, res: Response) {
         try {
             const users = await this.userRepository.getUsers();
-            return ApiResponse.successResponse(res, { message: USER_CREATED_MESSAGE, users });
+            return ApiResponse.successResponse(res, { users });
         } catch (error) {
             return Error.handleError(res, error);
         }
