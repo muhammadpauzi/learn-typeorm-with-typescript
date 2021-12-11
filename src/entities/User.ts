@@ -2,6 +2,7 @@ import { BeforeInsert, Column, Entity, OneToMany, } from "typeorm";
 import BaseModel from "./BaseModel";
 import Post from './Post';
 import { genSalt, hash } from 'bcrypt';
+import moment from 'moment';
 
 @Entity({ name: 'users' })
 export default class User extends BaseModel {
@@ -27,6 +28,18 @@ export default class User extends BaseModel {
     }
 
     public toJSON() {
-        return { ...this, password: undefined };
+        return {
+            ...this, password: undefined,
+            createdAt: {
+                "unformat": this.createdAt,
+                "formated": moment(this.createdAt).format('llll'),
+                "fromNow": moment(this.createdAt).fromNow()
+            },
+            updatedAt: {
+                "unformat": this.updatedAt,
+                "formated": moment(this.updatedAt).format('llll'),
+                "fromNow": moment(this.updatedAt).fromNow()
+            }
+        };
     }
 }
