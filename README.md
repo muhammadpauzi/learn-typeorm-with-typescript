@@ -135,6 +135,9 @@ Response :
         "username": "string",
         "name": "string",
         "email": "string",
+        "posts": [{
+
+        }],
         "createdAt": "date",
         "updatedAt": "date"
     }
@@ -289,6 +292,9 @@ Response :
         "id": "number",
         "content": "string",
         "userId": "number",
+        "user": [{
+
+        }],
         "createdAt": "date",
         "updatedAt": "date"
     }
@@ -312,7 +318,6 @@ Response :
 - Success :
 ```json
 {
-
     "message": "string"
 }
 ```
