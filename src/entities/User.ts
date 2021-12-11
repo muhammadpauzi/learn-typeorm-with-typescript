@@ -1,6 +1,7 @@
 import { BeforeInsert, Column, Entity, OneToMany, } from "typeorm";
 import BaseModel from "./BaseModel";
 import Post from './Post';
+import { genSalt, hash } from 'bcrypt';
 
 @Entity({ name: 'users' })
 export default class User extends BaseModel {
@@ -19,7 +20,13 @@ export default class User extends BaseModel {
     @OneToMany(() => Post, post => post.user)
     posts!: Post[]
 
-    toJSON() {
+    @BeforeInsert()
+    public async hashPassword() {
+        const salt = await genSalt();
+        this.password = await hash(this.password, salt);
+    }
+
+    public toJSON() {
         return { ...this, password: undefined };
     }
 }
