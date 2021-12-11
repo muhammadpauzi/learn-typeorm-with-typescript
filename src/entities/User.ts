@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, OneToMany, } from "typeorm";
 import BaseModel from "./BaseModel";
 import Post from './Post';
 
@@ -18,4 +18,8 @@ export default class User extends BaseModel {
 
     @OneToMany(() => Post, post => post.user)
     posts!: Post[]
+
+    toJSON() {
+        return { ...this, password: undefined };
+    }
 }
