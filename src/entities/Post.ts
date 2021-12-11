@@ -10,7 +10,6 @@ export default class Post extends BaseModel {
     @Column()
     userId!: number;
 
-    // FIX: set cascade true
-    @ManyToOne(() => User, user => user.posts)
+    @ManyToOne(() => User, user => user.posts, { onDelete: "CASCADE" })
     user!: User;
 }

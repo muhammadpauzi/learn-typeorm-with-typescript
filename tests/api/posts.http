@@ -9,7 +9,7 @@ POST {{BASE_URL}}
 Content-Type: application/json
 
 {
-    "userId": 1,
+    "userId": 2,
     "content": "{{dummy_content}}"
 }
 

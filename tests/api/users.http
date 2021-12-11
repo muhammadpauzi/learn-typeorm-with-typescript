@@ -16,11 +16,11 @@ Content-Type: application/json
 }
 
 ###
-GET {{BASE_URL}}/1
+GET {{BASE_URL}}/2
 
 ###
 
-DELETE {{BASE_URL}}?id=1
+DELETE {{BASE_URL}}?id=2
 
 ###
 PUT {{BASE_URL}}?id=1
