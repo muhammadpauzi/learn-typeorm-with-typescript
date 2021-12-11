@@ -7,6 +7,9 @@ export default class Post extends BaseModel {
     @Column({ type: "text" })
     content!: string;
 
+    @Column()
+    userId!: number;
+
     @ManyToOne(() => User, user => user.posts)
     user!: User;
 }

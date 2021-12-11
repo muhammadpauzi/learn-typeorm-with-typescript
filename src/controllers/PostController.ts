@@ -19,4 +19,13 @@ export default class PostController {
             return Error.handleError(res, error);
         }
     }
+
+    public async create(req: Request, res: Response) {
+        try {
+            const post = await this.postRepository.createPost(req.body);
+            return ApiResponse.successCreatedResponse(res, { post });
+        } catch (error: any) {
+            return Error.handleError(res, error);
+        }
+    }
 }

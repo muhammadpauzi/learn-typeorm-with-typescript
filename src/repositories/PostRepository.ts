@@ -14,4 +14,18 @@ export default class PostRepository {
             }
         })
     }
+
+    public createPost(post: IPost): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                // FIX: userId -> req.user.id with JWT
+                const { content, userId } = post;
+                let newPost = await Post.create({ content, userId });
+                newPost = await newPost.save();
+                resolve(newPost);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
+            }
+        })
+    }
 }
