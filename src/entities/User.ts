@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, } from "typeorm";
+import { BeforeInsert, Column, Entity, OneToMany, } from "typeorm";
 import BaseModel from "./BaseModel";
 import Post from './Post';
 
