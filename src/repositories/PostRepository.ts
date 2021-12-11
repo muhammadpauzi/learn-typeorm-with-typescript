@@ -28,4 +28,44 @@ export default class PostRepository {
             }
         })
     }
+
+    public getPost(id: number): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const post = await Post.findOne(id, { relations: ['user'] });
+                if (!post) reject({ code: NOT_FOUND_CODE, message: POST_DOES_NOT_EXISTS_MESSAGE });
+                resolve(post);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
+            }
+        })
+    }
+
+    public deletePost(id: number): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const post = await Post.findOne(id);
+                if (!post) reject({ code: NOT_FOUND_CODE, message: POST_DOES_NOT_EXISTS_MESSAGE });
+                post?.remove();
+                resolve(true);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
+            }
+        })
+    }
+
+    public updatePost(id: number, postBody: IPost): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const post = await this.getPost(id);
+                // update value
+                post.content = postBody.content || post.content;
+
+                const updatedPost = await post.save();
+                resolve(updatedPost);
+            } catch (error: any) {
+                reject({ code: SERVER_ERROR_CODE, message: error.message });
+            }
+        })
+    }
 }

@@ -10,6 +10,7 @@ export default class Post extends BaseModel {
     @Column()
     userId!: number;
 
+    // FIX: set cascade true
     @ManyToOne(() => User, user => user.posts)
     user!: User;
 }

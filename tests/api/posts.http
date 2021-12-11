@@ -25,6 +25,5 @@ PUT {{BASE_URL}}?id=1
 Content-Type: application/json
 
 {
-    "name": "{{random}}",
-    "email": "{{random}}"
+    "content": "{{dummy_content}} (updated)"
 }
