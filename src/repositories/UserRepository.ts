@@ -7,7 +7,7 @@ export default class UserRepository {
     public getUsers(): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
-                const users = await User.find({ order: { createdAt: "DESC" } });
+                const users = await User.find({ order: { createdAt: "DESC" }, relations: ['posts'] });
                 resolve(users);
             } catch (error: any) {
                 reject({ code: SERVER_ERROR_CODE, message: error.message });
@@ -31,7 +31,7 @@ export default class UserRepository {
     public getUser(id: number): Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
-                const user = await User.findOne(id);
+                const user = await User.findOne(id, { relations: ['posts'] });
                 if (!user) reject({ code: NOT_FOUND_CODE, message: USER_DOES_NOT_EXISTS_MESSAGE });
                 resolve(user);
             } catch (error: any) {

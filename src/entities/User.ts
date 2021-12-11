@@ -1,5 +1,6 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import BaseModel from "./BaseModel";
+import Post from './Post';
 
 @Entity({ name: 'users' })
 export default class User extends BaseModel {
@@ -14,4 +15,7 @@ export default class User extends BaseModel {
 
     @Column({ type: "varchar", length: 255, nullable: false })
     password!: string;
+
+    @OneToMany(() => Post, post => post.user)
+    posts!: Post[]
 }
