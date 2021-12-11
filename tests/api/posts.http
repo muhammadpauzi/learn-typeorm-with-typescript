@@ -1,0 +1,29 @@
+@BASE_URL = http://127.0.0.1:5000/api/posts
+@random = {{$randomInt 1 1000}}
+@dummy_content = "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt, quidem harum repellat magnam error est? Error, officia. Harum, eligendi fuga."
+
+GET {{BASE_URL}}
+
+###
+POST {{BASE_URL}}
+Content-Type: application/json
+
+{
+    "content": "{{dummy_content}}",
+}
+
+###
+GET {{BASE_URL}}/1
+
+###
+
+DELETE {{BASE_URL}}?id=1
+
+###
+PUT {{BASE_URL}}?id=1
+Content-Type: application/json
+
+{
+    "name": "{{random}}",
+    "email": "{{random}}"
+}

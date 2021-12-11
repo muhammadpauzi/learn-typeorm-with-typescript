@@ -1,0 +1,22 @@
+import { Request, Response } from "express";
+import { POST_CREATED_MESSAGE, POST_DELETED_MESSAGE, POST_UPDATED_MESSAGE } from "../constants/messages";
+import ApiResponse from "../helpers/ApiResponse";
+import Error from "../helpers/Error";
+import PostRepository from "../repositories/PostRepository";
+
+export default class PostController {
+    private postRepository: PostRepository;
+
+    constructor() {
+        this.postRepository = new PostRepository();
+    }
+
+    public async posts(req: Request, res: Response) {
+        try {
+            const posts = await this.postRepository.getPosts();
+            return ApiResponse.successResponse(res, { posts });
+        } catch (error) {
+            return Error.handleError(res, error);
+        }
+    }
+}
