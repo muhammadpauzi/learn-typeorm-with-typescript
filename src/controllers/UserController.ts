@@ -14,7 +14,7 @@ export default class UserController {
     public async users(req: Request, res: Response) {
         try {
             const users = await this.userRepository.getUsers();
-            return ApiResponse.successResponse(res, { users });
+            return ApiResponse.successResponse(res, { data: users });
         } catch (error) {
             return Error.handleError(res, error);
         }
@@ -23,7 +23,7 @@ export default class UserController {
     public async create(req: Request, res: Response) {
         try {
             const user = await this.userRepository.createUser(req.body);
-            return ApiResponse.successCreatedResponse(res, { user });
+            return ApiResponse.successCreatedResponse(res, { data: user });
         } catch (error: any) {
             return Error.handleError(res, error);
         }
@@ -34,7 +34,7 @@ export default class UserController {
         try {
             const { id } = req.params;
             const user = await this.userRepository.getUser(Number(id));
-            return ApiResponse.successResponse(res, { user });
+            return ApiResponse.successResponse(res, { data: user });
         } catch (error: any) {
             return Error.handleError(res, error);
         }
@@ -56,7 +56,7 @@ export default class UserController {
         try {
             const { id } = req.query;
             const updatedUser = await this.userRepository.updateUser(Number(id), req.body);
-            return ApiResponse.successResponse(res, { message: USER_UPDATED_MESSAGE, user: updatedUser });
+            return ApiResponse.successResponse(res, { message: USER_UPDATED_MESSAGE, data: updatedUser });
         } catch (error: any) {
             return Error.handleError(res, error);
         }

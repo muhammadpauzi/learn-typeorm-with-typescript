@@ -14,7 +14,7 @@ export default class PostController {
     public async posts(req: Request, res: Response) {
         try {
             const posts = await this.postRepository.getPosts();
-            return ApiResponse.successResponse(res, { posts });
+            return ApiResponse.successResponse(res, { data: posts });
         } catch (error) {
             return Error.handleError(res, error);
         }
@@ -23,7 +23,7 @@ export default class PostController {
     public async create(req: Request, res: Response) {
         try {
             const post = await this.postRepository.createPost(req.body);
-            return ApiResponse.successCreatedResponse(res, { post });
+            return ApiResponse.successCreatedResponse(res, { data: post });
         } catch (error: any) {
             return Error.handleError(res, error);
         }
@@ -33,7 +33,7 @@ export default class PostController {
         try {
             const { id } = req.params;
             const post = await this.postRepository.getPost(Number(id));
-            return ApiResponse.successResponse(res, { post });
+            return ApiResponse.successResponse(res, { data: post });
         } catch (error: any) {
             return Error.handleError(res, error);
         }
@@ -54,7 +54,7 @@ export default class PostController {
         try {
             const { id } = req.query;
             const updatedPost = await this.postRepository.updatePost(Number(id), req.body);
-            return ApiResponse.successResponse(res, { message: POST_UPDATED_MESSAGE, user: updatedPost });
+            return ApiResponse.successResponse(res, { message: POST_UPDATED_MESSAGE, data: updatedPost });
         } catch (error: any) {
             return Error.handleError(res, error);
         }
